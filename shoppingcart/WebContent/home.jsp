@@ -108,35 +108,35 @@
 			
 			<% if(request.getParameter("page")==null){	
 			%>
-					<jsp:include page="home">
+					<jsp:include page='<%="/home"%>'>
 						<jsp:param name="pa" value="home" />
 					</jsp:include>
 			<%
 			}else if(request.getParameter("page").equals("1")){
 			%>
 					
-					<jsp:include page="home">
+					<jsp:include page='<%="/home"%>'>
 						<jsp:param name="pa" value="1" />
 					</jsp:include>
 			<%
 			}else if(request.getParameter("page").equals("2")){
 			%>
 					
-					<jsp:include page="home">
+					<jsp:include page='<%="/home"%>'>
 						<jsp:param name="pa" value="2" />
 					</jsp:include>
 			<%
 			}else if(request.getParameter("page").equals("3")){
 			%>
 					
-					<jsp:include page="home">
+					<jsp:include page='<%="/home"%>'>
 						<jsp:param name="pa" value="3" />
 					</jsp:include>
 			<%
 			}else if(request.getParameter("page").equals("4")){
 				%>
 				
-				<jsp:include page="home">
+				<jsp:include page='<%="/home"%>'>
 					<jsp:param name="pa" value="4" />
 				</jsp:include>
 			<%
