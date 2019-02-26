@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=BIG5"
     pageEncoding="BIG5"%>
+<%@ page import="java.util.*,java.text.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -84,10 +85,10 @@
 		  <nav>
 		    <ul>
 		      <li><a href="home.jsp">首頁</a></li>
-		      <li><a href="food.jsp">補品</a></li>
-		      <li><a href="armor.jsp">防具</a></li>
-		      <li><a href="arms.jsp">武器</a></li>
-		      <li><a href="shoppingcart.jsp">購物車</a></li>
+		      <li><a href="home.jsp?page=1">補品</a></li>
+		      <li><a href="home.jsp?page=2">防具</a></li>
+		      <li><a href="home.jsp?page=3">武器</a></li>
+		      <li><a href="home.jsp?page=4">購物車</a></li>
 		    </ul>
 		  </nav>
 		  
@@ -103,16 +104,47 @@
 		  	          alert("加入購物車");
 		  		}  		
 			</script>
-			<img src="image/food/牛奶.jpg"><br>牛奶　<button type="button" onclick="button('milk')">加入購物車</button><br>
-		  	<img src="image/food/蛋糕.jpg"><br>蛋糕　<button type="button" onclick="button('cake')">加入購物車</button><br>
-		  	
-		  	<img src="image/armor/盾牌.jpg"><br>盾牌　<button type="button" onclick="button('shied')">加入購物車</button><br>
-		  	<img src="image/armor/褲子.jpg"><br>褲子　<button type="button" onclick="button('trousers')">加入購物車</button><br>
-		  	<img src="image/armor/鎧甲.jpg"><br>鎧甲　<button type="button" onclick="button('clothes')">加入購物車</button><br>
-		  	
-		  	<img src="image/arms/公事包.jpg"><br>公事包　<button type="button" onclick="button('suitcase')">加入購物車</button><br>
-		  	<img src="image/arms/劍.jpg"><br>劍　<button type="button" onclick="button('sword')">加入購物車</button><br>
-		  	<img src="image/arms/棒球棍.jpg"><br>棒球棍　<button type="button" onclick="button('mbaseballbat')">加入購物車</button><br>
+			
+			
+			<% if(request.getParameter("page")==null){	
+			%>
+					<jsp:include page="home">
+						<jsp:param name="pa" value="home" />
+					</jsp:include>
+			<%
+			}else if(request.getParameter("page").equals("1")){
+			%>
+					
+					<jsp:include page="home">
+						<jsp:param name="pa" value="1" />
+					</jsp:include>
+			<%
+			}else if(request.getParameter("page").equals("2")){
+			%>
+					
+					<jsp:include page="home">
+						<jsp:param name="pa" value="2" />
+					</jsp:include>
+			<%
+			}else if(request.getParameter("page").equals("3")){
+			%>
+					
+					<jsp:include page="home">
+						<jsp:param name="pa" value="3" />
+					</jsp:include>
+			<%
+			}else if(request.getParameter("page").equals("4")){
+				%>
+				
+				<jsp:include page="home">
+					<jsp:param name="pa" value="4" />
+				</jsp:include>
+			<%
+			}
+			%>
+			
+			
+			
 		  </article>
 		</section>
 	</body>

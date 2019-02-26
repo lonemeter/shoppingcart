@@ -20,16 +20,18 @@ public class sessiontest extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String 加入購物單 = request.getParameter("ses");
-		//String sell = request.getParameter("sell");
-		//Optional<String> sell = Optional.ofNullable(request.getParameter("sell"));
-		if(request.getParameter("sell")!=null){
-			request.getSession().removeAttribute(加入購物單);
-			response.sendRedirect("shoppingcart.jsp");
-		}else{
-			request.getSession().setAttribute(加入購物單, 加入購物單);
-			response.sendRedirect("home.jsp");
-		}
-		
-	}
 
+		if(request.getParameter("clc")!=null){
+			request.getSession().invalidate();
+			response.sendRedirect("home.jsp?page=4");
+		}else{
+			if(request.getParameter("sell")!=null){
+				request.getSession().removeAttribute(加入購物單);
+				response.sendRedirect("home.jsp?page=4");
+			}else{
+				request.getSession().setAttribute(加入購物單, 加入購物單);
+				response.sendRedirect("home.jsp");
+			}
+		}
+	}
 }
