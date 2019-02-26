@@ -1,9 +1,9 @@
 package shoppingcart;
 
-public class food extends Goods {
+public class Food extends Goods {
 	double discount;
 
-	food(String name, double price, String photo, String engname){
+	Food(String name, double price, String photo, String engname){
 		super(name, price, photo, engname);
 	}
 	

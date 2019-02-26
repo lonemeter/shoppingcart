@@ -1,9 +1,9 @@
 package shoppingcart;
 
-public class armor extends Goods{
+public class Arms extends Goods {
 	double discount;
-	
-	armor(String name, double price, String photo, String engname){
+
+	Arms(String name, double price, String photo, String engname){
 		super(name, price, photo, engname);
 	}
 	
@@ -14,6 +14,4 @@ public class armor extends Goods{
 	public void setDiscount(double discount) {
 		this.discount = discount;
 	}
-	
 }
-
