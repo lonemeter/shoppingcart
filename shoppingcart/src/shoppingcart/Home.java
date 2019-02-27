@@ -65,5 +65,6 @@ public class Home extends HttpServlet {
 			request.setAttribute("sum", sum);
 			request.getRequestDispatcher("WEB-INF/shoppingcart.jsp").forward(request, response);
 		}
+	
 	}
 }

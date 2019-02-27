@@ -11,7 +11,9 @@
 	</head>
 <body>
 	<header>
-		  <h2>歡迎光臨METER購物車</h2>
+		  <h2><c:if test="${login != null}">${login},</c:if>歡迎光臨METER購物車</h2>
+		  <c:if test="${login == null}"><a href='login'>由此登入</a></c:if>
+		  <jsp:include page='logout.jsp'/>
 	</header>
 	<section>
 		  <nav>
@@ -27,7 +29,9 @@
 			<c:forEach var="goods" items="${goods}">
 				<img src="${goods.photo}"><br>${goods.name}　價格:${goods.price}　<button type='button' onclick='alert("移除購物車");location.href="sessiontest?sell=t&ses=${goods.engname}"'>移除購物車</button><br>
 			</c:forEach>		
-			<br><br>總共金額：${sum}　<button type='button' onclick='alert("付款： ${sum}元， 成功！");location.href="sessiontest?clc=t"'>去結帳</button><br>
+			<br><br>
+			<c:if test="${login != null}">總共金額：${sum}　<button type='button' onclick='alert("付款： ${sum}元， 成功！");location.href="sessiontest?clc=t"'>去結帳</button><br></c:if>
+			<c:if test="${login == null}">未登入</c:if>
 		  </article>
 		</section>
 </body>

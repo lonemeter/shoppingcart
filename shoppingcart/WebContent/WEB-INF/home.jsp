@@ -12,7 +12,9 @@
 	</head>
 	<body>
 		<header>
-		  <h2>歡迎光臨METER${分類}商場</h2>
+		  <h2><c:if test="${login != null}">${login},</c:if>歡迎光臨METER${分類}商場</h2>
+		  <c:if test="${login == null}"><a href='login'>由此登入</a></c:if>
+		  <jsp:include page='logout.jsp'/>
 		</header>
 		<section>
 		  <nav>
@@ -27,16 +29,16 @@
 		  <article>
 			<script>
 		  		function button(a){
-		  	            $.ajax({
-		  	                type:"get",  //傳值方式有分 post & get
-		  	                url:"sessiontest?ses="+a,
-		  	                async:false
-		  	            })
-		  	          alert("加入購物車");
+		  				 $.ajax({ 
+		  	               type:"get",  //傳值方式有分 post & get
+		  	               url:"sessiontest?ses="+a,
+		  	               async:false
+			  	         })
+			  	          alert("加入購物車");
 		  		}  		
 			</script>
 			<c:forEach var="goods" items="${goods}">
-				<img src='${goods.photo}'><br>${goods.name}　價格:${goods.price}　<button type='button' onclick="button('${goods.engname}')">加入購物車</button><br>
+						<img src='${goods.photo}'><br>${goods.name}　價格:${goods.price}　<c:if test='${login!=null}'><button type='button' onclick="button('${goods.engname}')">加入購物車</button></c:if><br>
 			</c:forEach>
 		  </article>
 		</section>
