@@ -2,6 +2,9 @@ package shoppingcart;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,62 +21,49 @@ public class Home extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
-		String i = request.getParameter("pa");
-		if(i.equals("home")){
-			for(Goods good: Items.arms){
-				out.printf("<img src='image/arms/%s.jpg'><br>%s　價格:%.2f　<button type='button' onclick='button(\"%s\")'>加入購物車</button><br>", good.name, good.name, good.price, good.engname);
-			}
-			for(Goods good: Items.food){
-				out.printf("<img src='image/food/%s.jpg'><br>%s　價格:%.2f　<button type='button' onclick='button(\"%s\")'>加入購物車</button><br>", good.name, good.name, good.price, good.engname);
-			}
-			for(Goods good: Items.armor){
-				out.printf("<img src='image/armor/%s.jpg'><br>%s　價格:%.2f　<button type='button' onclick='button(\"%s\")'>加入購物車</button><br>", good.name, good.name, good.price, good.engname);
-			}
+		String i = request.getParameter("page");
+		if(i==null){
+			request.setAttribute("分類", "購物");
+			Goods[] goods = Items.all;
+			request.setAttribute("goods", goods);
+			request.getRequestDispatcher("WEB-INF/home.jsp").forward(request, response);
 		}
-		
-		
 		if(i.equals("1")){
-			for(Goods good: Items.food){
-				out.printf("<img src='image/food/%s.jpg'><br>%s　價格:%.2f　<button type='button' onclick='button(\"%s\")'>加入購物車</button><br>", good.name, good.name, good.price, good.engname);
-			}
+			request.setAttribute("分類", "補品");
+			Goods[] goods = Items.food; 
+			request.setAttribute("goods", goods);
+			request.getRequestDispatcher("WEB-INF/home.jsp").forward(request, response);
 		}
 		
 		
 		if(i.equals("2")){
-			for(Goods good: Items.armor){
-				out.printf("<img src='image/armor/%s.jpg'><br>%s　價格:%.2f　<button type='button' onclick='button(\"%s\")'>加入購物車</button><br>", good.name, good.name, good.price, good.engname);
-			}
+			request.setAttribute("分類", "防具");
+			Goods[] goods = Items.armor;
+			request.setAttribute("goods", goods);
+			request.getRequestDispatcher("WEB-INF/home.jsp").forward(request, response);
 		}
 		
 		
 		if(i.equals("3")){
-			for(Goods good: Items.arms){
-				out.printf("<img src='image/arms/%s.jpg'><br>%s　價格:%.2f　<button type='button' onclick='button(\"%s\")'>加入購物車</button><br>", good.name, good.name, good.price, good.engname);
-			}
+			request.setAttribute("分類", "武器");
+			Goods[] goods = Items.arms; 
+			request.setAttribute("goods", goods);
+			request.getRequestDispatcher("WEB-INF/home.jsp").forward(request, response);
 		}
 		
 		
 		if(i.equals("4")){
 			double sum = 0;
-			for(Goods good: Items.arms){
+			List<Goods> goods = new ArrayList();
+			for(Goods good: Items.all){
 				if(request.getSession().getAttribute(good.engname)!=null){
-					out.printf("<img src='image/arms/%s.jpg'><br>%s　價格:%.2f　<button type='button' onclick='alert(\"移除購物車\");location.href=\"sessiontest?ses=%s&sell=t\"'>移除購物車</button><br>",good.name, good.name, good.price, good.engname);
+					goods.add(good);
 					sum += good.price;
 				}
 			}
-			for(Goods good: Items.food){
-				if(request.getSession().getAttribute(good.engname)!=null){
-					out.printf("<img src='image/food/%s.jpg'><br>%s　價格:%.2f　<button type='button' onclick='alert(\"移除購物車\");location.href=\"sessiontest?ses=%s&sell=t\"'>移除購物車</button><br>",good.name, good.name, good.price, good.engname);
-					sum += good.price;
-				}	
-			}
-			for(Goods good: Items.armor){
-				if(request.getSession().getAttribute(good.engname)!=null){
-					out.printf("<img src='image/armor/%s.jpg'><br>%s　價格:%.2f　<button type='button' onclick='alert(\"移除購物車\");location.href=\"sessiontest?ses=%s&sell=t\"'>移除購物車</button><br>",good.name, good.name, good.price, good.engname);
-					sum += good.price;
-				}
-			}
-			out.printf("<br><br>總共金額：%.2f　<button type='button' onclick='alert(\"付款： %.2f元， 成功！\");location.href=\"sessiontest?clc=t\"'>去結帳</button><br>", sum, sum);
+			request.setAttribute("goods", goods);
+			request.setAttribute("sum", sum);
+			request.getRequestDispatcher("WEB-INF/shoppingcart.jsp").forward(request, response);
 		}
 	}
 }

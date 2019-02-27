@@ -23,14 +23,14 @@ public class Sessiontest extends HttpServlet {
 
 		if(request.getParameter("clc")!=null){
 			request.getSession().invalidate();
-			response.sendRedirect("home.jsp?page=4");
+			response.sendRedirect("home?page=4");
 		}else{
 			if(request.getParameter("sell")!=null){
 				request.getSession().removeAttribute(加入購物單);
-				response.sendRedirect("home.jsp?page=4");
+				response.sendRedirect("home?page=4");
 			}else{
 				request.getSession().setAttribute(加入購物單, 加入購物單);
-				response.sendRedirect("home.jsp");
+				response.sendRedirect("home");
 			}
 		}
 	}
