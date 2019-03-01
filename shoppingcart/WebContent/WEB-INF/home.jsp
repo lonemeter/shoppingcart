@@ -6,26 +6,21 @@
 <html>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<head>
+		<style>
+		a {text-decoration:none;}
+		</style>
 		<meta http-equiv="Content-Type" content="text/html; charset=BIG5">
 		<title>METER 購物場</title>	
 		<jsp:include page='frame.jsp'/>
 	</head>
 	<body>
 		<header>
-		  <h2><c:if test="${login != null}">${login},</c:if>歡迎光臨METER${分類}商場</h2>
-		  <c:if test="${login == null}"><a href='login'>由此登入</a></c:if>
+		  <h2><c:if test="${login != null}">${login},</c:if>歡迎光臨METER的${分類}商場</h2>
+		  <c:if test="${login == null}"><a href='login'>由此登入帳號</a></c:if>
 		  <jsp:include page='logout.jsp'/>
 		</header>
 		<section>
-		  <nav>
-		    <ul>
-		      <li><a href="home">首頁</a></li>
-		      <li><a href="home?page=1">補品</a></li>
-		      <li><a href="home?page=2">防具</a></li>
-		      <li><a href="home?page=3">武器</a></li>
-		      <li><a href="home?page=4">購物車</a></li>
-		    </ul>
-		  </nav>	  
+		  <jsp:include page="frame-nav.jsp"/>	  
 		  <article>
 			<script>
 		  		function button(a){

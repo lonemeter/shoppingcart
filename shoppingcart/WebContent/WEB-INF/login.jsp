@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=BIG5"
     pageEncoding="BIG5"%>
+<style>
+a {text-decoration:none;}
+</style>
 <title>µn¤J±b¸¹</title>
 <table width="100%" height="100%">
 	<tr><td align="center" valign="center">

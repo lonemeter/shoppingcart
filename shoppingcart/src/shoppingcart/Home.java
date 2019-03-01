@@ -23,39 +23,22 @@ public class Home extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		String i = request.getParameter("page");
 		if(i==null){
+			Items items = new Items();
 			request.setAttribute("分類", "購物");
-			Goods[] goods = Items.all;
+			Goods[] goods = items.goods;
 			request.setAttribute("goods", goods);
 			request.getRequestDispatcher("WEB-INF/home.jsp").forward(request, response);
-		}
-		if(i.equals("1")){
-			request.setAttribute("分類", "補品");
-			Goods[] goods = Items.food; 
+		}else if(!(i.equals("shoppingcart"))){
+			Items items = new Items(i);
+			request.setAttribute("分類", i);
+			Goods[] goods = items.goods; 
 			request.setAttribute("goods", goods);
 			request.getRequestDispatcher("WEB-INF/home.jsp").forward(request, response);
-		}
-		
-		
-		if(i.equals("2")){
-			request.setAttribute("分類", "防具");
-			Goods[] goods = Items.armor;
-			request.setAttribute("goods", goods);
-			request.getRequestDispatcher("WEB-INF/home.jsp").forward(request, response);
-		}
-		
-		
-		if(i.equals("3")){
-			request.setAttribute("分類", "武器");
-			Goods[] goods = Items.arms; 
-			request.setAttribute("goods", goods);
-			request.getRequestDispatcher("WEB-INF/home.jsp").forward(request, response);
-		}
-		
-		
-		if(i.equals("4")){
+		}else if(i.equals("shoppingcart")){
+			Items items = new Items();
 			double sum = 0;
 			List<Goods> goods = new ArrayList();
-			for(Goods good: Items.all){
+			for(Goods good: items.goods){
 				if(request.getSession().getAttribute(good.engname)!=null){
 					goods.add(good);
 					sum += good.price;
@@ -65,6 +48,5 @@ public class Home extends HttpServlet {
 			request.setAttribute("sum", sum);
 			request.getRequestDispatcher("WEB-INF/shoppingcart.jsp").forward(request, response);
 		}
-	
 	}
 }

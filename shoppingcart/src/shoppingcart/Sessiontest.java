@@ -30,11 +30,11 @@ public class Sessiontest extends HttpServlet {
 				String name = (String)request.getSession().getAttribute("login");
 				request.getSession().invalidate();
 				request.getSession().setAttribute("login", name);
-				response.sendRedirect("home?page=4");
+				response.sendRedirect("questionnaire");
 			}else{
 				if(request.getParameter("sell")!=null){
 					request.getSession().removeAttribute(加入購物單);
-					response.sendRedirect("home?page=4");
+					response.sendRedirect("home?page=shoppingcart");
 				}else{
 					request.getSession().setAttribute(加入購物單, 加入購物單);
 					response.sendRedirect("home");

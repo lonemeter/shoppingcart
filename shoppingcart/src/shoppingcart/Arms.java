@@ -1,7 +1,7 @@
 package shoppingcart;
 
 public class Arms extends Goods {
-	double discount;
+	private double discount;
 
 	Arms(String name, double price, String photo, String engname){
 		super(name, price, photo, engname);

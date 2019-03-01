@@ -1,7 +1,7 @@
 package shoppingcart;
 
 public class Food extends Goods {
-	double discount;
+	private double discount;
 
 	Food(String name, double price, String photo, String engname){
 		super(name, price, photo, engname);
