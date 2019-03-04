@@ -14,7 +14,7 @@ a {text-decoration:none;}
 	</head>
 <body>
 	<header>
-		  <h2><c:if test="${login != null}">${login},</c:if>歡迎光臨METER購物車</h2>
+		  <h2><c:if test="${login != null}">${login.getName()},</c:if>歡迎光臨METER購物車</h2>
 		  <c:if test="${login == null}"><a href='login'>由此登入帳號</a></c:if>
 		  <jsp:include page='logout.jsp'/>
 	</header>
@@ -26,12 +26,19 @@ a {text-decoration:none;}
 			</c:forEach>		
 			<br><br>
 			<c:if test="${login != null}">
+				您的現金：${login.getMoney()}　<br>
 				<c:choose>
 					<c:when test="${sum==0}">
 						總共金額：${sum}　<button type='button' onclick='alert("未選擇商品")'>去結帳</button><br>
 					</c:when>
 					<c:otherwise>
-						總共金額：${sum}　<button type='button' onclick='alert("付款： ${sum}元， 成功！");location.href="sessiontest?clc=t"'>去結帳</button><br>
+						<c:if test="${sum>login.getMoney()}">
+							總共金額　：${sum}　餘額不足<button type='button' onclick='location.href="storeservlet"'>請儲值</button><br>
+						</c:if>
+						<c:if test="${sum<=login.getMoney()}">
+							總共金額　：${sum}　<button type='button' onclick='alert("付款： ${sum}元， 成功！");location.href="sessiontest?clc=t"'>去結帳</button><br>
+						</c:if>
+						
 					</c:otherwise>
 				</c:choose>
 				

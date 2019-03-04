@@ -24,10 +24,15 @@ public class Login extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		if(request.getParameter("name").equals("meter")&&request.getParameter("password").equals("123456")){
+		Accountdate user = new Accountdate();
+		if(user.check(request.getParameter("name"),request.getParameter("password"))){
+			request.getSession().setAttribute("login", user.getLoginuser());
+			response.sendRedirect("home");
+		}
+		/*if(request.getParameter("name").equals("meter")&&request.getParameter("password").equals("123456")){
 			request.getSession().setAttribute("login", request.getParameter("name"));
 			response.sendRedirect("home");
-		}else{
+		}*/else{
 			request.getRequestDispatcher("WEB-INF/login.jsp").forward(request, response);
 		}
 	}

@@ -27,9 +27,10 @@ public class Sessiontest extends HttpServlet {
 			response.sendRedirect("login");
 		}else{
 			if(request.getParameter("clc")!=null){
-				String name = (String)request.getSession().getAttribute("login");
+				Account loginuser = (Account)request.getSession().getAttribute("login");
+				loginuser.Consume((double)request.getSession().getAttribute("sum"));
 				request.getSession().invalidate();
-				request.getSession().setAttribute("login", name);
+				request.getSession().setAttribute("login", loginuser);
 				response.sendRedirect("questionnaire");
 			}else{
 				if(request.getParameter("sell")!=null){

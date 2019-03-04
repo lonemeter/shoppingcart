@@ -1,6 +1,6 @@
 package shoppingcart;
 
-public class Account {
+public class Account implements Store, Consume{
 	private String name;
 	private String password;
 	private double money;
@@ -8,6 +8,14 @@ public class Account {
 		this.name = name;
 		this.password = password;
 		this.money = money;
+	}
+	@Override
+	public void Store(double num){
+		this.money += num;
+	}
+	@Override
+	public void Consume(double num){
+		this.money -= num;
 	}
 	public String getName() {
 		return name;
@@ -23,8 +31,5 @@ public class Account {
 	}
 	public double getMoney() {
 		return money;
-	}
-	public void setMoney(double money) {
-		this.money = money;
 	}
 }

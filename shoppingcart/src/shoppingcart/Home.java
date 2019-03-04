@@ -22,17 +22,26 @@ public class Home extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		String i = request.getParameter("page");
+		String serch = Optional.ofNullable(request.getParameter("serch")).orElse("");
 		if(i==null){
 			Items items = new Items();
 			request.setAttribute("分類", "購物");
 			Goods[] goods = items.goods;
-			request.setAttribute("goods", goods);
+			if(serch!=""){
+				request.setAttribute("goods", Serch.GoodsSerch(goods,serch));
+			}else{
+				request.setAttribute("goods", goods);
+			}
 			request.getRequestDispatcher("WEB-INF/home.jsp").forward(request, response);
 		}else if(!(i.equals("shoppingcart"))){
 			Items items = new Items(i);
 			request.setAttribute("分類", i);
 			Goods[] goods = items.goods; 
-			request.setAttribute("goods", goods);
+			if(serch!=""){
+				request.setAttribute("goods", Serch.GoodsSerch(goods,serch));
+			}else{
+				request.setAttribute("goods", goods);
+			}
 			request.getRequestDispatcher("WEB-INF/home.jsp").forward(request, response);
 		}else if(i.equals("shoppingcart")){
 			Items items = new Items();
@@ -45,7 +54,7 @@ public class Home extends HttpServlet {
 				}
 			}
 			request.setAttribute("goods", goods);
-			request.setAttribute("sum", sum);
+			request.getSession().setAttribute("sum", sum);
 			request.getRequestDispatcher("WEB-INF/shoppingcart.jsp").forward(request, response);
 		}
 	}

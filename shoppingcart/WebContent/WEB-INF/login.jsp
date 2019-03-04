@@ -13,6 +13,6 @@ a {text-decoration:none;}
 			<input type="submit" value="登入">
 		</form>
 		<a href='home'>不登入直接遊覽</a>
-		<button type="button" onclick="location.href='accountdb'">註冊帳號</button>
+		<button type="button" onclick="location.href='nothing.jsp'">註冊帳號</button>
 	</td></tr>
 </table>
