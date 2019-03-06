@@ -1,4 +1,4 @@
-package shoppingcart;
+package com.lonemeter.shoppingcart;
 
 
 import java.io.IOException;

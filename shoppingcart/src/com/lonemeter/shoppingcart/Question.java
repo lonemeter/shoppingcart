@@ -1,4 +1,4 @@
-package shoppingcart;
+package com.lonemeter.shoppingcart;
 
 import java.util.List;
 import java.util.ArrayList;

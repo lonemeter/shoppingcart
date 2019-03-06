@@ -1,22 +1,22 @@
-package shoppingcart;
+package com.lonemeter.shoppingcart;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import com.lonemeter.shoppingcart.good.*;
 public class Serch {
 	
 	
 	public static List<Goods> GoodsSerch(Goods[] goods, String serch){
 		List<Goods> goods2 = new ArrayList();
 		for(Goods good: goods){
-			if(SubString(good.name, serch)){
+			if(subString(good.getName(), serch)){
 				goods2.add(good);
 			}
 		}
 		return goods2;
 	}
 	
-	public static boolean SubString(String name, String serch){
+	public static boolean subString(String name, String serch){
 		if(serch.length() > name.length()){
 			return false;
 		}else{

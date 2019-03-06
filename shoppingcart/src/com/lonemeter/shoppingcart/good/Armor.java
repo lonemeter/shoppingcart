@@ -1,9 +1,9 @@
-package shoppingcart;
+package com.lonemeter.shoppingcart.good;
 
 public class Armor extends Goods{
 	private double discount;
 	
-	Armor(String name, double price, String photo, String engname){
+	public Armor(String name, double price, String photo, String engname){
 		super(name, price, photo, engname);
 	}
 	
@@ -11,9 +11,5 @@ public class Armor extends Goods{
 		return discount;
 	}
 
-	public void setDiscount(double discount) {
-		this.discount = discount;
-	}
-	
 }
 

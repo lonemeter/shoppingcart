@@ -1,4 +1,4 @@
-package shoppingcart;
+package com.lonemeter.shoppingcart;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,6 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.lonemeter.shoppingcart.good.*;
 /**
  * Servlet implementation class home
  */
@@ -48,9 +50,9 @@ public class Home extends HttpServlet {
 			double sum = 0;
 			List<Goods> goods = new ArrayList();
 			for(Goods good: items.goods){
-				if(request.getSession().getAttribute(good.engname)!=null){
+				if(request.getSession().getAttribute(good.getEngname())!=null){
 					goods.add(good);
-					sum += good.price;
+					sum += good.getPrice();
 				}
 			}
 			request.setAttribute("goods", goods);

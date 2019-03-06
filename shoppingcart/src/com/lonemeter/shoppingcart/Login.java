@@ -1,4 +1,4 @@
-package shoppingcart;
+package com.lonemeter.shoppingcart;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -24,7 +24,7 @@ public class Login extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Accountdate user = new Accountdate();
+		Accounth2date user = new Accounth2date();
 		if(user.check(request.getParameter("name"),request.getParameter("password"))){
 			request.getSession().setAttribute("login", user.getLoginuser());
 			response.sendRedirect("home");

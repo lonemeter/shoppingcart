@@ -22,7 +22,7 @@ a {text-decoration:none;}
 		  <jsp:include page="frame-nav.jsp"/>
 		  <article>
 			<c:forEach var="goods" items="${goods}">
-				<img src="${goods.photo}"><br>${goods.name}　價格:${goods.price}　<button type='button' onclick='alert("移除購物車");location.href="sessiontest?sell=t&ses=${goods.engname}"'>移除購物車</button><br>
+				<img src="${goods.getPhoto()}"><br>${goods.getName()}　價格:${goods.getPrice()}　<button type='button' onclick='alert("移除購物車");location.href="sessiontest?sell=t&ses=${goods.getEngname()}"'>移除購物車</button><br>
 			</c:forEach>		
 			<br><br>
 			<c:if test="${login != null}">

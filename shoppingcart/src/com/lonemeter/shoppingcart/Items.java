@@ -1,8 +1,10 @@
-package shoppingcart;
+package com.lonemeter.shoppingcart;
+
+import com.lonemeter.shoppingcart.good.*;
 
 public class Items {
 	Goods[] goods;
-	Items(){
+	public Items(){
 		int i = 0;
 		Goods[] all = new Goods[armor.length + arms.length + food.length];
 		System.arraycopy(armor, 0, all, i, armor.length);
@@ -13,7 +15,7 @@ public class Items {
 		i += food.length;
 		this.goods = all;
 	}
-	Items(String name){
+	public Items(String name){
 		if(name.equals("armor")){
 			this.goods = armor;
 		}

@@ -40,7 +40,7 @@
 				<input type="submit" value="收尋"><br><br>
 			</form>
 			<c:forEach var="goods" items="${goods}">
-						<img src='${goods.photo}'><br>${goods.name}　價格:${goods.price}　<c:if test='${login!=null}'><button type='button' onclick="button('${goods.engname}')">加入購物車</button></c:if><br>
+						<img src='${goods.getPhoto()}'><br>${goods.getName()}　價格:${goods.getPrice()}　<c:if test='${login!=null}'><button type='button' onclick="button('${goods.getEngname()}')">加入購物車</button></c:if><br>
 			</c:forEach>
 		  </article>
 		</section>
