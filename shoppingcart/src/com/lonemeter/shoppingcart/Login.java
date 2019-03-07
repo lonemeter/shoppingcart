@@ -24,15 +24,22 @@ public class Login extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Accounth2date user = new Accounth2date();
+		Accounth2date user = null;
+		//String sqlpath = this.getServletContext().getRealPath("WEB-INF/classes/sql/Account.sql");
+		try {
+			user = new Accounth2date();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if(user.check(request.getParameter("name"),request.getParameter("password"))){
 			request.getSession().setAttribute("login", user.getLoginuser());
 			response.sendRedirect("home");
 		}
-		/*if(request.getParameter("name").equals("meter")&&request.getParameter("password").equals("123456")){
-			request.getSession().setAttribute("login", request.getParameter("name"));
-			response.sendRedirect("home");
-		}*/else{
+		else{
 			request.getRequestDispatcher("WEB-INF/login.jsp").forward(request, response);
 		}
 	}
