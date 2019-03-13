@@ -1,28 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=BIG5"
     pageEncoding="BIG5"%>
+<%@ page import="java.util.*,java.text.*" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-<style>
-a {text-decoration:none;}
-</style>
-<meta http-equiv="Content-Type" content="text/html; charset=BIG5">
-<title>主畫面是甚麼鬼</title>
-</head>
-<body>
-<h1>Page1</h1>
-<a href="home">http://localhost:8081/shoppingcart/home</a><br>
-
-<h1>Page2</h1>
-<a href="home?page=1">http://localhost:8081/shoppingcart/home?page=1</a><br>
-
-<h1>Page3</h1>
-<a href="home?page=2">http://localhost:8081/shoppingcart/home?page=2</a><br>
-
-<h1>Page4</h1>
-<a href="home?page=3">http://localhost:8081/shoppingcart/home?page=3</a><br>
-
-<h1>Page5</h1>
-<a href="home?page=4">http://localhost:8081/shoppingcart/home?page=4</a><br>
-</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<head>
+		<style>
+		a {text-decoration:none;}
+		</style>
+		<meta http-equiv="Content-Type" content="text/html; charset=BIG5">
+		<title>METER 煮畫面</title>	
+		<jsp:include page='WEB-INF\frame.jsp'/>
+	</head>
+	<body>
+		<header>
+		  <h2><c:if test="${login != null}">${login.getName()},</c:if>歡迎光臨METER的${分類}商場</h2>
+		  <c:if test="${login == null}"><a href='login'>由此登入帳號</a></c:if>
+		  <jsp:include page='WEB-INF\logout.jsp'/>
+		</header>
+		<section>
+		  <jsp:include page="WEB-INF\frame-nav.jsp"/>	  
+		  <article>
+			我只是煮畫面QQ
+		  </article>
+		</section>
+	</body>
 </html>

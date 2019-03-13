@@ -28,7 +28,7 @@ public class Home extends HttpServlet {
 		if(i==null){
 			Items items = new Items();
 			request.setAttribute("分類", "購物");
-			Goods[] goods = items.goods;
+			List<Goods> goods = items.goods;
 			if(serch!=""){
 				request.setAttribute("goods", Serch.GoodsSerch(goods,serch));
 			}else{
@@ -38,7 +38,7 @@ public class Home extends HttpServlet {
 		}else if(!(i.equals("shoppingcart"))){
 			Items items = new Items(i);
 			request.setAttribute("分類", i);
-			Goods[] goods = items.goods; 
+			List<Goods> goods = items.goods; 
 			if(serch!=""){
 				request.setAttribute("goods", Serch.GoodsSerch(goods,serch));
 			}else{

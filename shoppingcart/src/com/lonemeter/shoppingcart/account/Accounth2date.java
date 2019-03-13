@@ -1,4 +1,4 @@
-package com.lonemeter.shoppingcart;
+package com.lonemeter.shoppingcart.account;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -8,8 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
-import sql.AddSQL;
-import sql.SearchSQLPath;
+import com.lonemeter.shoppingcart.sql.AddSQL;
+import com.lonemeter.shoppingcart.sql.GetSQLPath;
 
 public class Accounth2date {
 	private Account loginuser;
@@ -17,15 +17,11 @@ public class Accounth2date {
 	Statement st;
 	ResultSet rs;
 	
-	public Accounth2date() throws InstantiationException, IllegalAccessException ,IOException{
-		new AddSQL("Account.sql");
-	}
-	
 	public boolean check(String name, String password){
 		try {
-			cn = DriverManager.getConnection("jdbc:h2:mem:testdb","geordie","1234");
+			cn = DriverManager.getConnection("jdbc:h2:mem:testdb","METER","123456");
 			st = cn.createStatement();
-			rs = st.executeQuery("SELECT * FROM GEORDIE");
+			rs = st.executeQuery("SELECT * FROM ACCOUNT");
 			while(rs.next()){
 				if(rs.getString("name").equals(name) && rs.getString("password").equals(password)){
 					Account user = new Account(rs.getString("name"),rs.getString("password"),rs.getDouble("money"));

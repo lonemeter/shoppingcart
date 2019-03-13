@@ -1,4 +1,4 @@
-package com.lonemeter.shoppingcart;
+package com.lonemeter.shoppingcart.account;
 
 public class Account implements Store, Consume{
 	private String name;

@@ -8,11 +8,11 @@ public class Goods{
 	
 	
 
-	Goods(){
+	public Goods(){
 		
 	}
 	
-	Goods(String name, double price, String photo, String engname){
+	public Goods(String name, double price, String photo, String engname){
 		this.name = name;
 		this.price = price;
 		this.photo = photo;
