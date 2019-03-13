@@ -1,6 +1,8 @@
 package com.lonemeter.shoppingcart;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +20,12 @@ public class Userstore extends HttpServlet {
    
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Account user = (Account) request.getSession().getAttribute("login");
-		user.Store(Double.parseDouble(request.getParameter("storemoney")));
+		try {
+			user.Store(Double.parseDouble(request.getParameter("storemoney")));
+		} catch (NumberFormatException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		response.sendRedirect("home?page=shoppingcart");
 	}
 

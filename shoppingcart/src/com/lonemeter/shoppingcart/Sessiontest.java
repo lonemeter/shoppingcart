@@ -3,6 +3,7 @@ package com.lonemeter.shoppingcart;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.Optional;
 
 import javax.servlet.ServletException;
@@ -30,7 +31,12 @@ public class Sessiontest extends HttpServlet {
 		}else{
 			if(request.getParameter("clc")!=null){
 				Account loginuser = (Account)request.getSession().getAttribute("login");
-				loginuser.Consume((double)request.getSession().getAttribute("sum"));
+				try {
+					loginuser.Consume((double)request.getSession().getAttribute("sum"));
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				request.getSession().invalidate();
 				request.getSession().setAttribute("login", loginuser);
 				response.sendRedirect("questionnaire");
