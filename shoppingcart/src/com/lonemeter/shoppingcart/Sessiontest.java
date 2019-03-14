@@ -24,30 +24,16 @@ public class Sessiontest extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String 加入購物單 = request.getParameter("ses");
-		PrintWriter out = response.getWriter();
-		if(request.getSession().getAttribute("login")==null){
-			//out.println("alert('請登入')");
-			response.sendRedirect("login");
+		if(request.getParameter("clc")!=null){
+			//request.getRequestDispatcher("consumeservlet").forward(request, response);
+			response.sendRedirect("consumeservlet");
 		}else{
-			if(request.getParameter("clc")!=null){
-				Account loginuser = (Account)request.getSession().getAttribute("login");
-				try {
-					loginuser.Consume((double)request.getSession().getAttribute("sum"));
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				request.getSession().invalidate();
-				request.getSession().setAttribute("login", loginuser);
-				response.sendRedirect("questionnaire");
+			if(request.getParameter("sell")!=null){
+				request.getSession().removeAttribute(加入購物單);
+				response.sendRedirect("home?page=shoppingcart");
 			}else{
-				if(request.getParameter("sell")!=null){
-					request.getSession().removeAttribute(加入購物單);
-					response.sendRedirect("home?page=shoppingcart");
-				}else{
-					request.getSession().setAttribute(加入購物單, 加入購物單);
-					response.sendRedirect("home");
-				}
+				request.getSession().setAttribute(加入購物單, 加入購物單);
+				response.sendRedirect("home");
 			}
 		}
 	}

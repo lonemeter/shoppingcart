@@ -11,7 +11,7 @@ import java.util.Scanner;
 import com.lonemeter.shoppingcart.sql.AddSQL;
 import com.lonemeter.shoppingcart.sql.GetSQLPath;
 
-public class Accounth2date {
+public class Accounth2data {
 	private Account loginuser;
 	Connection cn;
 	Statement st;
@@ -36,7 +36,27 @@ public class Accounth2date {
 		return false;
 		
 	}
-
+	
+	public boolean register(String name, String password){
+		try {
+			cn = DriverManager.getConnection("jdbc:h2:mem:testdb","METER","123456");
+			st = cn.createStatement();
+			rs = st.executeQuery("SELECT * FROM ACCOUNT");
+			while(rs.next()){
+				if(rs.getString("name").equals(name)){
+					return false;
+				}
+			}
+			Account user = new Account(name,password,0);
+			st.executeUpdate("INSERT INTO ACCOUNT VALUES ('" + name + "','" + password + "',0.0)");
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 	public Account getLoginuser() {
 		return loginuser;
 	}

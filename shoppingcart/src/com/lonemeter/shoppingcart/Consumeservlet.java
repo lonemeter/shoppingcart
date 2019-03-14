@@ -12,28 +12,27 @@ import javax.servlet.http.HttpServletResponse;
 import com.lonemeter.shoppingcart.account.Account;
 
 /**
- * Servlet implementation class Storeservlet
+ * Servlet implementation class Consumeservlet
  */
-@WebServlet("/storeservlet")
-public class Storeservlet extends HttpServlet {
+@WebServlet("/consumeservlet")
+public class Consumeservlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("WEB-INF/store.jsp").forward(request, response);
-	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Account user = (Account) request.getSession().getAttribute("login");
+		Account loginuser = (Account)request.getSession().getAttribute("login");
 		try {
-			user.Store(Double.parseDouble(request.getParameter("storemoney")));
-		} catch (NumberFormatException | SQLException e) {
+			loginuser.Consume((double)request.getSession().getAttribute("sum"));
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		response.sendRedirect("home?page=shoppingcart");
+		request.getSession().invalidate();
+		request.getSession().setAttribute("login", loginuser);
+		response.sendRedirect("questionnaire");
 	}
+
 	
 
 }

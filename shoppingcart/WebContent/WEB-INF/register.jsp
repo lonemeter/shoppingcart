@@ -11,11 +11,11 @@
 
 	<tr><td align="center" valign="center">
 	<h3>µù¥U·s±b¸¹</h3>
-	<form action="accountdb" method="post">
+	<form action="registerservlet" method="post">
 		±b¸¹:<input type="text" name=name><br>
-		±K½X:<input type="password" name=password><br>
-		±K½X½T»{:<input type="password" name=password><br>
-		<input type="submit" value="µù¥U">
+		±K½X:<input type="password" name=password1><br>
+		±K½X½T»{:<input type="password" name=password2><br>
+		<input type="submit" value="µù¥U"><a href="login">§Ú¦³±b¸¹°Õ~</a>
 	</form>
 	</td></tr>
 

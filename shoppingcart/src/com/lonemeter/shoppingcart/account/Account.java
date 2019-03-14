@@ -10,7 +10,7 @@ public class Account implements Store, Consume{
 	private String name;
 	private String password;
 	private double money;
-	Account(String name, String password, double money){
+	public Account(String name, String password, double money){
 		this.name = name;
 		this.password = password;
 		this.money = money;
@@ -35,6 +35,17 @@ public class Account implements Store, Consume{
 		this.money = rs.getDouble("MONEY");
 		//this.money -= num;
 	}
+	
+	public void Changepassword(String newpassword) throws SQLException{
+		Connection cn = DriverManager.getConnection("jdbc:h2:mem:testdb","meter","123456");
+		Statement st = cn.createStatement();
+		st.executeUpdate("UPDATE ACCOUNT SET PASSWORD ='"+ newpassword +"' WHERE NAME='"+this.name+"'");
+		ResultSet rs = st.executeQuery("SELECT * FROM ACCOUNT WHERE NAME='"+this.name+"'");
+		rs.next();
+		this.password = rs.getString("PASSWORD");
+	}
+	
+	
 	public String getName() {
 		return name;
 	}
