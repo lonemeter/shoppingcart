@@ -19,9 +19,9 @@ public class AddSQL {
 	Statement st;
 	ResultSet rs;
 	
-	public AddSQL(String SQL) throws InstantiationException, IllegalAccessException ,IOException{
+	public AddSQL(String SQL) throws InstantiationException, IllegalAccessException ,IOException, ClassNotFoundException{
 		try {
-			//Class.forName("org.h2.Driver").newInstance();
+			Class.forName("org.h2.Driver").newInstance();
 			cn = DriverManager.getConnection("jdbc:h2:mem:testdb","meter","123456");
 			st = cn.createStatement();
 			
