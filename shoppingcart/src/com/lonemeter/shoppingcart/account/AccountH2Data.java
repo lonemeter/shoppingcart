@@ -11,7 +11,7 @@ import java.util.Scanner;
 import com.lonemeter.shoppingcart.sql.AddSQL;
 import com.lonemeter.shoppingcart.sql.GetSQLPath;
 
-public class Accounth2data {
+public class AccountH2Data {
 	private Account loginuser;
 	Connection cn;
 	Statement st;
@@ -57,7 +57,7 @@ public class Accounth2data {
 		return false;
 	}
 	
-	public Account getLoginuser() {
+	public Account getLoginUser() {
 		return loginuser;
 	}
 	

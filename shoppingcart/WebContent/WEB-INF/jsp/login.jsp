@@ -7,12 +7,12 @@ a {text-decoration:none;}
 <table width="100%" height="100%">
 	<tr><td align="center" valign="center">
 		<h3>請登入帳號</h3>
-		<form action="login" method="post">
+		<form action="Login" method="post">
 			帳號:<input type="text" name="name"><br>
 			密碼:<input type="password" name="password"><br>
 			<input type="submit" value="登入">
 		</form>
-		<a href='home'>不登入直接遊覽</a>
-		<button type="button" onclick="location.href='registerservlet'">註冊帳號</button>
+		<a href='Home'>不登入直接遊覽</a>
+		<button type="button" onclick="location.href='Register'">註冊帳號</button>
 	</td></tr>
 </table>

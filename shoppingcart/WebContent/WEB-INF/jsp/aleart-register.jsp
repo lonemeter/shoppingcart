@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <script language="javascript">
-	alert("修改成功");
-	location.href="home";
+	alert("註冊成功");
+	location.href="Login";
 </script>
 <body>
 

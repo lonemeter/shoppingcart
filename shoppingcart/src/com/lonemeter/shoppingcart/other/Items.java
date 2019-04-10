@@ -1,4 +1,4 @@
-package com.lonemeter.shoppingcart;
+package com.lonemeter.shoppingcart.other;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,41 +12,10 @@ import com.lonemeter.shoppingcart.account.Account;
 import com.lonemeter.shoppingcart.good.*;
 
 public class Items {
-	List<Goods> goods;
-	public Items(){
-		
-		Connection cn;
-		Statement st;
-		ResultSet rs;
-		List<Goods> goods = new ArrayList();
-		try {
-			cn = DriverManager.getConnection("jdbc:h2:mem:testdb","METER","123456");
-			st = cn.createStatement();
-			rs = st.executeQuery("SELECT * FROM GOOD");
-			while(rs.next()){
-				goods.add(new Goods(rs.getString("NAME"), 
-									rs.getDouble("PRICE"), 
-									rs.getString("PHOTO"), 
-									rs.getString("ENGNAME")));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		this.goods = goods;
-		
-		/*
-		int i = 0;
-		Goods[] all = new Goods[armor.length + arms.length + food.length];
-		System.arraycopy(armor, 0, all, i, armor.length);
-		i += armor.length;
-		System.arraycopy(arms, 0, all, i, arms.length);
-		i += arms.length;
-		System.arraycopy(food, 0, all, i, food.length);
-		i += food.length;
-		this.goods = all;
-		*/
+	public List<Goods> goods;
+	public Items() {
 	}
+	
 	public Items(String name){
 		Connection cn;
 		Statement st;
@@ -57,7 +26,12 @@ public class Items {
 			st = cn.createStatement();
 			rs = st.executeQuery("SELECT * FROM GOOD");
 			while(rs.next()){
-				if(rs.getString("CLASSIFICATION").equals(name)){
+				if(name == null || "shoppingcart".equals(name)) {
+					goods.add(new Goods(rs.getString("NAME"), 
+							rs.getDouble("PRICE"), 
+							rs.getString("PHOTO"), 
+							rs.getString("ENGNAME")));
+				}else if(rs.getString("CLASSIFICATION").equals(name)){
 					goods.add(new Goods(rs.getString("NAME"), 
 										rs.getDouble("PRICE"), 
 										rs.getString("PHOTO"), 

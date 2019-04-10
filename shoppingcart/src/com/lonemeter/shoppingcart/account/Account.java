@@ -16,7 +16,7 @@ public class Account implements Store, Consume{
 		this.money = money;
 	}
 	@Override
-	public void Store(double num) throws SQLException{
+	public void store(double num) throws SQLException{
 		Connection cn = DriverManager.getConnection("jdbc:h2:mem:testdb","meter","123456");
 		Statement st = cn.createStatement();
 		st.executeUpdate("UPDATE ACCOUNT SET MONEY = MONEY+"+ num +" WHERE NAME='"+this.name+"'");
@@ -26,7 +26,7 @@ public class Account implements Store, Consume{
 		//this.money += num;
 	}
 	@Override
-	public void Consume(double num) throws SQLException{
+	public void consume(double num) throws SQLException{
 		Connection cn = DriverManager.getConnection("jdbc:h2:mem:testdb","meter","123456");
 		Statement st = cn.createStatement();
 		st.executeUpdate("UPDATE ACCOUNT SET MONEY = MONEY-"+ num +" WHERE NAME='"+this.name+"'");
@@ -36,7 +36,7 @@ public class Account implements Store, Consume{
 		//this.money -= num;
 	}
 	
-	public void Changepassword(String newpassword) throws SQLException{
+	public void changePassword(String newpassword) throws SQLException{
 		Connection cn = DriverManager.getConnection("jdbc:h2:mem:testdb","meter","123456");
 		Statement st = cn.createStatement();
 		st.executeUpdate("UPDATE ACCOUNT SET PASSWORD ='"+ newpassword +"' WHERE NAME='"+this.name+"'");

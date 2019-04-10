@@ -1,4 +1,4 @@
-package com.lonemeter.shoppingcart;
+package com.lonemeter.shoppingcart.other;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import com.lonemeter.shoppingcart.good.*;
 public class Serch {
 	
 	
-	public static List<Goods> GoodsSerch(List<Goods> goods, String serch){
+	public static List<Goods> goodsSerch(List<Goods> goods, String serch){
 		List<Goods> goods2 = new ArrayList();
 		for(Goods good: goods){
 			if(subString(good.getName(), serch)){
