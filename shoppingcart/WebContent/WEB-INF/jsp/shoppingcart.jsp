@@ -15,14 +15,14 @@ a {text-decoration:none;}
 <body>
 	<header>
 		  <h2><c:if test="${loginUser != null}">${loginUser.getName()},</c:if>歡迎光臨METER購物車</h2>
-		  <c:if test="${loginUser == null}"><a href='Login'>由此登入帳號</a></c:if>
+		  <c:if test="${loginUser == null}"><a href='login'>由此登入帳號</a></c:if>
 		  <jsp:include page='/WEB-INF/jsp/logout.jsp'/>
 	</header>
 	<section>
 		  <jsp:include page="/WEB-INF/jsp/frame-nav.jsp"/>
 		  <article>
 			<c:forEach var="goods" items="${goods}">
-				<img src="${goods.getPhoto()}"><br>${goods.getName()}　價格:${goods.getPrice()}　<button type='button' onclick='alert("移除購物車");location.href="ShoppingCartManagement?remove=t&product=${goods.getEngname()}"'>移除購物車</button><br>
+				<img src="${goods.getPhoto()}"><br>${goods.getName()}　價格:${goods.getPrice()}　<button type='button' onclick='alert("移除購物車");location.href="shoppingCartManagement?remove=t&product=${goods.getEngname()}"'>移除購物車</button><br>
 			</c:forEach>		
 			<br><br>
 			<c:if test="${loginUser != null}">
@@ -33,10 +33,10 @@ a {text-decoration:none;}
 					</c:when>
 					<c:otherwise>
 						<c:if test="${sum > loginUser.getMoney()}">
-							總共金額　：${sum}　餘額不足<button type='button' onclick='location.href="Store"'>請儲值</button><br>
+							總共金額　：${sum}　餘額不足<button type='button' onclick='location.href="store"'>請儲值</button><br>
 						</c:if>
 						<c:if test="${sum <= loginUser.getMoney()}">
-							總共金額　：${sum}　<button type='button' onclick='alert("付款： ${sum}元， 成功！");location.href="Consume"'>去結帳</button><br>
+							總共金額　：${sum}　<button type='button' onclick='alert("付款： ${sum}元， 成功！");location.href="consume"'>去結帳</button><br>
 						</c:if>
 						
 					</c:otherwise>

@@ -17,7 +17,7 @@ public class Account implements Store, Consume{
 	}
 	@Override
 	public void store(double num) throws SQLException{
-		Connection cn = DriverManager.getConnection("jdbc:h2:mem:testdb","meter","123456");
+		Connection cn = DriverManager.getConnection("jdbc:h2:mem:testdb","sa","");
 		Statement st = cn.createStatement();
 		st.executeUpdate("UPDATE ACCOUNT SET MONEY = MONEY+"+ num +" WHERE NAME='"+this.name+"'");
 		ResultSet rs = st.executeQuery("SELECT * FROM ACCOUNT WHERE NAME='"+this.name+"'");
@@ -27,7 +27,7 @@ public class Account implements Store, Consume{
 	}
 	@Override
 	public void consume(double num) throws SQLException{
-		Connection cn = DriverManager.getConnection("jdbc:h2:mem:testdb","meter","123456");
+		Connection cn = DriverManager.getConnection("jdbc:h2:mem:testdb","sa","");
 		Statement st = cn.createStatement();
 		st.executeUpdate("UPDATE ACCOUNT SET MONEY = MONEY-"+ num +" WHERE NAME='"+this.name+"'");
 		ResultSet rs = st.executeQuery("SELECT * FROM ACCOUNT WHERE NAME='"+this.name+"'");
@@ -37,7 +37,7 @@ public class Account implements Store, Consume{
 	}
 	
 	public void changePassword(String newpassword) throws SQLException{
-		Connection cn = DriverManager.getConnection("jdbc:h2:mem:testdb","meter","123456");
+		Connection cn = DriverManager.getConnection("jdbc:h2:mem:testdb","sa","");
 		Statement st = cn.createStatement();
 		st.executeUpdate("UPDATE ACCOUNT SET PASSWORD ='"+ newpassword +"' WHERE NAME='"+this.name+"'");
 		ResultSet rs = st.executeQuery("SELECT * FROM ACCOUNT WHERE NAME='"+this.name+"'");

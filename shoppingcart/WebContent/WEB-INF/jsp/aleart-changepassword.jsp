@@ -8,7 +8,7 @@
 </head>
 <script language="javascript">
 	alert("н╫зяжие\");
-	location.href="Home";
+	location.href="home";
 </script>
 <body>
 

@@ -11,11 +11,11 @@
 
 	<tr><td align="center" valign="center">
 	<h3>註冊新帳號</h3>
-	<form action="Register" method="post">
+	<form action="register" method="post">
 		帳號:<input type="text" name=name><br>
 		密碼:<input type="password" name=password1><br>
 		密碼確認:<input type="password" name=password2><br>
-		<input type="submit" value="註冊"><a href="Login">我有帳號啦~</a>
+		<input type="submit" value="註冊"><a href="login">我有帳號啦~</a>
 	</form>
 	</td></tr>
 

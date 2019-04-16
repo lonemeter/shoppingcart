@@ -2,10 +2,10 @@
     pageEncoding="BIG5"%>
 <nav>
     <ul>
-      <li><a href="Home">首頁</a></li>
-      <li><a href="Home?page=food">補品</a></li>
-      <li><a href="Home?page=armor">防具</a></li>
-      <li><a href="Home?page=arms">武器</a></li>
-      <li><a href="Home?page=shoppingcart">購物車</a></li>
+      <li><a href="home">首頁</a></li>
+      <li><a href="home?page=food">補品</a></li>
+      <li><a href="home?page=armor">防具</a></li>
+      <li><a href="home?page=arms">武器</a></li>
+      <li><a href="home?page=shoppingcart">購物車</a></li>
     </ul>
 </nav>

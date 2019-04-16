@@ -8,7 +8,7 @@
 </head>
 <script language="javascript">
 	alert("µù¥U¦¨¥\");
-	location.href="Login";
+	location.href="login";
 </script>
 <body>
 

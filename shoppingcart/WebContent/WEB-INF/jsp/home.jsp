@@ -16,7 +16,7 @@
 	<body>
 		<header>
 		  <h2><c:if test="${loginUser != null}">${loginUser.getName()},</c:if>歡迎光臨METER的${分類}商場</h2>
-		  <c:if test="${loginUser == null}"><a href='Login'>由此登入帳號</a></c:if>
+		  <c:if test="${loginUser == null}"><a href='login'>由此登入帳號</a></c:if>
 		  <jsp:include page='/WEB-INF/jsp/logout.jsp'/>
 		</header>
 		<section>
@@ -26,13 +26,13 @@
 		  		function button(a){
 		  				 $.ajax({ 
 		  	               type:"get",  //傳值方式有分 post & get
-		  	               url:"ShoppingCartManagement?product="+a,
+		  	               url:"shoppingCartManagement?product="+a,
 		  	               async:false
 			  	         })
 			  	          alert("加入購物車");
 		  		}  		
 			</script>
-			<form action="Home" method="get">
+			<form action="home" method="get">
 			<c:if test="${param.page!=null && param.page!=shoppingcart}">
 				<input type='hidden' name='page' value='${param.page}'>
 			</c:if>

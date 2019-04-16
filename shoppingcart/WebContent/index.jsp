@@ -16,7 +16,7 @@
 	<body>
 		<header>
 		  <h2><c:if test="${login != null}">${login.getName()},</c:if>歡迎光臨METER的${分類}商場</h2>
-		  <c:if test="${login == null}"><a href='Login'>由此登入帳號</a></c:if>
+		  <c:if test="${login == null}"><a href='login'>由此登入帳號</a></c:if>
 		  <jsp:include page='WEB-INF\jsp\logout.jsp'/>
 		</header>
 		<section>

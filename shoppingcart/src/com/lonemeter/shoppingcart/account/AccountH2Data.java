@@ -19,7 +19,7 @@ public class AccountH2Data {
 	
 	public boolean check(String name, String password){
 		try {
-			cn = DriverManager.getConnection("jdbc:h2:mem:testdb","METER","123456");
+			cn = DriverManager.getConnection("jdbc:h2:mem:testdb","sa","");
 			st = cn.createStatement();
 			rs = st.executeQuery("SELECT * FROM ACCOUNT");
 			while(rs.next()){
@@ -39,7 +39,7 @@ public class AccountH2Data {
 	
 	public boolean register(String name, String password){
 		try {
-			cn = DriverManager.getConnection("jdbc:h2:mem:testdb","METER","123456");
+			cn = DriverManager.getConnection("jdbc:h2:mem:testdb","sa","");
 			st = cn.createStatement();
 			rs = st.executeQuery("SELECT * FROM ACCOUNT");
 			while(rs.next()){

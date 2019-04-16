@@ -12,7 +12,7 @@
 			問題二:${question1}<br>
 			問題三:${question2}<br>
 			<br>
-			<a href="Home">繼續購物</a>
+			<a href="home">繼續購物</a>
 		</article>
 	</td></tr>
 </table>

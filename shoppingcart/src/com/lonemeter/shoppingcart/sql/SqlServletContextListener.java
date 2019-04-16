@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebListener;
 
 @WebListener()
 public class SqlServletContextListener implements ServletContextListener {
+	/*
 	@Override
     public void contextInitialized(ServletContextEvent sce) {
 		try {
@@ -54,4 +55,5 @@ public class SqlServletContextListener implements ServletContextListener {
 					e.printStackTrace();
 				}
 	}
+	*/
 }

@@ -22,7 +22,7 @@ public class Items {
 		ResultSet rs;
 		List<Goods> goods = new ArrayList();
 		try {
-			cn = DriverManager.getConnection("jdbc:h2:mem:testdb","METER","123456");
+			cn = DriverManager.getConnection("jdbc:h2:mem:testdb","sa","");
 			st = cn.createStatement();
 			rs = st.executeQuery("SELECT * FROM GOOD");
 			while(rs.next()){
@@ -42,36 +42,6 @@ public class Items {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.goods = goods;
-		/*
-		if(name.equals("armor")){
-			this.goods = armor;
-		}
-		if(name.equals("arms")){
-			this.goods = arms;
-		}
-		if(name.equals("food")){
-			this.goods = food;
-		}
-		*/
-		
+		this.goods = goods;	
 	}
-	/*
-	private Armor[] armor = {
-			new Armor("¬ÞµP", 1000, "image/armor/¬ÞµP.jpg", "shied"),
-			new Armor("¿Ç¤l", 2000, "image/armor/¿Ç¤l.jpg", "trousers"),
-			new Armor("ñZ¥Ò", 3000, "image/armor/ñZ¥Ò.jpg", "clothes")
-	};
-	
-	private Arms[] arms = {
-			new Arms("¤½¨Æ¥]", 100, "image/arms/¤½¨Æ¥].jpg", "suitcase"),
-			new Arms("¼C", 200, "image/arms/¼C.jpg", "sword"),
-			new Arms("´Î²y´Ò", 300, "image/arms/´Î²y´Ò.jpg", "baseballbat")
-	};
-	
-	private Food[] food = {
-			new Food("¤û¥¤", 1, "image/food/¤û¥¤.jpg", "milk"),
-			new Food("³J¿|", 2, "image/food/³J¿|.jpg", "cake")
-	};
-	*/
 }
