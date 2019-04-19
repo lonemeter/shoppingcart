@@ -1,6 +1,5 @@
 package com.lonemeter.shoppingcart.sql;
 
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -11,7 +10,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Scanner;
 
 public class AddSQL {
 	
@@ -34,20 +32,8 @@ public class AddSQL {
 					output.write(date, 0 , length);
 				}
 			}
-			/*
-			String sql = "";
-			System.setIn(new FileInputStream(new SearchSQLPath().SQLName(SQL)));
-			try (Scanner file = new Scanner(System.in)){
-				while(file.hasNextLine()){
-					sql += file.nextLine();
-				}
-			}
-			*/
 			st.executeUpdate(writer.toString());
-		} /*catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} */catch (SQLException e) {
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

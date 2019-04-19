@@ -1,12 +1,19 @@
-CREATE TABLE IF NOT EXISTS GOOD(CLASSIFICATION VARCHAR(20), NAME VARCHAR(20), PRICE DOUBLE, PHOTO VARCHAR(50), ENGNAME VARCHAR(20));
-INSERT INTO GOOD VALUES 	('armor','¬ÞµP',1000.0,'image/armor/¬ÞµP.jpg','shied'),
-							('armor','¿Ç¤l',2000.0,'image/armor/¿Ç¤l.jpg','trousers'),
-							('armor','ñZ¥Ò',3000.0,'image/armor/ñZ¥Ò.jpg','clothes'),
-							
-							('arms','¤½¨Æ¥]',100.0,'image/arms/¤½¨Æ¥].jpg','suitcase'),
-							('arms','¼C',200.0,'image/arms/¼C.jpg','sword'),
-							('arms','´Î²y´Ò',300.0,'image/arms/´Î²y´Ò.jpg','baseballbat'),
-							
-							('food','¤û¥¤',1.0,'image/food/¤û¥¤.jpg','milk'),
-							('food','³J¿|',2.0,'image/food/³J¿|.jpg','cake');
-							
+CREATE TABLE GOOD (
+	GoodID int IDENTITY not null primary key , 
+	CategoryID int, 
+	Name varchar(255),
+	PRICE DOUBLE, 
+	PHOTO VARCHAR(255), 
+	ENGNAME VARCHAR(255),
+	foreign key (CategoryID) references CATEGORY(CategoryID)
+);
+
+INSERT INTO GOOD (CategoryID,Name,PRICE,PHOTO,ENGNAME) VALUES 
+(1,'¬ÞµP',1000.0,'image/armor/¬ÞµP.jpg','shied'),
+(1,'¿Ç¤l',2000.0,'image/armor/¿Ç¤l.jpg','trousers'),
+(1,'ñZ¥Ò',3000.0,'image/armor/ñZ¥Ò.jpg','clothes'),	
+(2,'¤½¨Æ¥]',100.0,'image/arms/¤½¨Æ¥].jpg','suitcase'),
+(2,'¼C',200.0,'image/arms/¼C.jpg','sword'),
+(2,'´Î²y´Ò',300.0,'image/arms/´Î²y´Ò.jpg','baseballbat'),		
+(3,'¤û¥¤',1.0,'image/food/¤û¥¤.jpg','milk'),	
+(3,'³J¿|',2.0,'image/food/³J¿|.jpg','cake');

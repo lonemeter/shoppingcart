@@ -1,9 +1,8 @@
 package com.lonemeter.shoppingcart.web;
 
-import javax.annotation.PostConstruct;
-import javax.sql.DataSource
-;
-import org.hsqldb.util.DatabaseManagerSwing;
+
+import javax.sql.DataSource;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -21,8 +20,11 @@ public class RootConfig {
 		EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
 		EmbeddedDatabase db = builder
 			.setType(EmbeddedDatabaseType.H2) //.H2 or .DERBY
-			.addScript("com/lonemeter/shoppingcart/sql/Account.sql")
+			.addScript("com/lonemeter/shoppingcart/sql/Category.sql")
 			.addScript("com/lonemeter/shoppingcart/sql/Good.sql")
+			.addScript("com/lonemeter/shoppingcart/sql/User.sql")
+			.addScript("com/lonemeter/shoppingcart/sql/Orders.sql")
+			.addScript("com/lonemeter/shoppingcart/sql/R1.sql")
 			.build();
 		return db;
 	}
@@ -34,21 +36,6 @@ public class RootConfig {
 	public JdbcTemplate getJdbcTemplate(){
 	  return new JdbcTemplate(dataSource);
 	}
-	/*
-	@PostConstruct
-	public void startDBManager() {
-			
-		//hsqldb
-		//DatabaseManagerSwing.main(new String[] { "--url", "jdbc:hsqldb:mem:testdb", "--user", "sa", "--password", "" });
-
-		//derby
-		//DatabaseManagerSwing.main(new String[] { "--url", "jdbc:derby:memory:testdb", "--user", "", "--password", "" });
-
-		//h2
-		DatabaseManagerSwing.main(new String[] { "--url", "jdbc:h2:mem:testdb", "--user", "sa", "--password", "" });
-
-	}
-	*/
 
 
 }

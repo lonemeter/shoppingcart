@@ -1,7 +1,6 @@
 package com.lonemeter.shoppingcart.sql;
 
 import java.io.*;
-import java.util.Scanner;
 
 public class GetSQLPath {
 	public  String sql="";

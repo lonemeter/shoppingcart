@@ -7,9 +7,19 @@ public class Serch {
 	
 	
 	public static List<Goods> goodsSerch(List<Goods> goods, String serch){
-		List<Goods> goods2 = new ArrayList();
+		List<Goods> goods2 = new ArrayList<>();
 		for(Goods good: goods){
 			if(subString(good.getName(), serch)){
+				goods2.add(good);
+			}
+		}
+		return goods2;
+	}
+	
+	public static List<Goods> goodsCategory(List<Goods> goods, String page){
+		List<Goods> goods2 = new ArrayList<>();
+		for(Goods good: goods){
+			if(good.getCategory().equals(page)){
 				goods2.add(good);
 			}
 		}

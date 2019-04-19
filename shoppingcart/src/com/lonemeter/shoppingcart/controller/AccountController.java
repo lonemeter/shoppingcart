@@ -2,126 +2,123 @@ package com.lonemeter.shoppingcart.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.lonemeter.shoppingcart.account.Account;
+import com.lonemeter.shoppingcart.account.AccountDAO;
 import com.lonemeter.shoppingcart.account.AccountH2Data;
+import com.lonemeter.shoppingcart.good.Goods;
 
 @Controller
 public class AccountController {
-	@Value("home")
-	private String REDIRECT_HOME_PATH;
-	@Value("home?page=shoppingcart")
-	private String REDIRECT_HOME_SHOPPINGCART_PATH;
-	@Value("WEB-INF/jsp/login.jsp")
-	private String LOGIN_PATH;
-	@Value("WEB-INF/jsp/register.jsp")
-	private String REGISTER_PATH;
-	@Value("WEB-INF/jsp/aleart-register.jsp")
-	private String ALEART_REGISTER_PATH;
-	@Value("WEB-INF/jsp/changepassword.jsp")
-	private String CHANGEPASSWORD_PATH;
-	@Value("WEB-INF/jsp/aleart-changepassword.jsp")
-	private String ALEART_CHANGEPASSWORD_PATH;
-	@Value("WEB-INF/jsp/store.jsp")
-	private String STORE_PATH;
-	@Value("questionnaire")
-	private String REDIRECT_QUESTIONNAIRE_PATH;
+	
+	@Autowired
+	AccountH2Data user;
+	@Autowired
+	List<Goods> goods;
 	
 	@GetMapping("login")
-	public void loginForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher(LOGIN_PATH).forward(request, response);
+	public String loginForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		return "login";
 	}
 	
 	@PostMapping("login")
-	public void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		AccountH2Data user = new AccountH2Data();
+	public String login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(user.check(request.getParameter("name"),request.getParameter("password"))){
 			request.getSession().setAttribute("loginUser", user.getLoginUser());
-			response.sendRedirect(REDIRECT_HOME_PATH);
+			return "redirect:home";
 		}
 		else{
-			request.getRequestDispatcher(LOGIN_PATH).forward(request, response);
+			return "login";
 		}
 	}
 	
 	@GetMapping("logout")
-	public void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public String logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getSession().invalidate();
-		response.sendRedirect(REDIRECT_HOME_PATH);
+		return "redirect:home";
 	}
 	
 	@GetMapping("register")
-	public void registerForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher(REGISTER_PATH).forward(request, response);
+	public String registerForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		return "register";
 	}
 	
 	@PostMapping("register")
-	public void register(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		AccountH2Data data = new AccountH2Data();
+	public String register(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getParameter("password1").equals(request.getParameter("password2"))
-				&& data.register(request.getParameter("name"), request.getParameter("password1"))){
-			request.getRequestDispatcher(ALEART_REGISTER_PATH).forward(request, response);
+				&& user.register(request.getParameter("name"), request.getParameter("password1"))){
+			return "aleart-register";
 		}else{
-			request.getRequestDispatcher(REGISTER_PATH).forward(request, response);
+			return "register";
 		}
 	}
 	
 	@GetMapping("changePassword")
-	public void changepasswordForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher(CHANGEPASSWORD_PATH).forward(request, response);
+	public String changepasswordForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		return "changepassword";
 	}
 	
 	@PostMapping("changePassword")
-	public void changepassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Account user = (Account) request.getSession().getAttribute("loginUser");
-		if(request.getParameter("oldPassword").equals(user.getPassword()) 
+	public String changepassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		AccountDAO loginUser = (AccountDAO) request.getSession().getAttribute("loginUser");
+		if(request.getParameter("oldPassword").equals(loginUser.getPassword()) 
 				&& request.getParameter("newPassword1").equals(request.getParameter("newPassword2"))){
 			try {
-				user.changePassword(request.getParameter("newPassword1"));
+				loginUser.changePassword(request.getParameter("newPassword1"));
 			} catch (NumberFormatException | SQLException e) {
 				e.printStackTrace();
 			}
-			request.getRequestDispatcher(ALEART_CHANGEPASSWORD_PATH).forward(request, response);
+			return "aleart-changepassword";
 		}else{
-			request.getRequestDispatcher(CHANGEPASSWORD_PATH).forward(request, response);
+			return "changepassword";
 		}
 	}
 	
 	@GetMapping("store")
-	public void storeForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher(STORE_PATH).forward(request, response);
+	public String storeForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		return "store";
 	}
 	
 	@PostMapping("store")
-	public void store(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Account user = (Account) request.getSession().getAttribute("loginUser");
+	public String store(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		AccountDAO loginUser = (AccountDAO) request.getSession().getAttribute("loginUser");
 		try {
-			user.store(Double.parseDouble(request.getParameter("storemoney")));
+			loginUser.store(Double.parseDouble(request.getParameter("storemoney")));
 		} catch (NumberFormatException | SQLException e) {
 			e.printStackTrace();
 		}
-		response.sendRedirect(REDIRECT_HOME_SHOPPINGCART_PATH);
+		return "redirect:home?page=shoppingcart";
 	}
 	
 	@GetMapping("consume")
-	public void Consume(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Account loginUser = (Account) request.getSession().getAttribute("loginUser");
+	public String Consume(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		AccountDAO loginUser = (AccountDAO) request.getSession().getAttribute("loginUser");
 		try {
 			loginUser.consume((double) request.getSession().getAttribute("sum"));
+			//新增orders
+			loginUser.addOrders();
+			//加入oders資料
+			for(Goods good: goods){
+				if(request.getSession().getAttribute(good.getEngname())!=null){
+					loginUser.addOrdersINFO(good);
+				}
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		request.getSession().invalidate();
 		request.getSession().setAttribute("loginUser", loginUser);
-		response.sendRedirect(REDIRECT_QUESTIONNAIRE_PATH);
+		return "redirect:questionnaire";
 	}
 }

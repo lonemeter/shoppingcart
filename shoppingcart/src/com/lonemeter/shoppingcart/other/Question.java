@@ -1,8 +1,8 @@
 package com.lonemeter.shoppingcart.other;
 
-import java.util.List;
-import java.util.ArrayList;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Question {
 
 	public String[] getQuestion(){

@@ -8,40 +8,41 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lonemeter.shoppingcart.account.Account;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
 import com.lonemeter.shoppingcart.good.*;
 
+@Component
 public class Items {
-	public List<Goods> goods;
-	public Items() {
-	}
-	
-	public Items(String name){
+	@Bean
+	public List<Goods> goods(){
 		Connection cn;
 		Statement st;
+		Statement st2;
 		ResultSet rs;
-		List<Goods> goods = new ArrayList();
+		ResultSet rs2;
+		List<Goods> goods = new ArrayList<>();
 		try {
 			cn = DriverManager.getConnection("jdbc:h2:mem:testdb","sa","");
 			st = cn.createStatement();
+			st2 = cn.createStatement();
 			rs = st.executeQuery("SELECT * FROM GOOD");
+			
 			while(rs.next()){
-				if(name == null || "shoppingcart".equals(name)) {
-					goods.add(new Goods(rs.getString("NAME"), 
+				rs2 = st2.executeQuery("SELECT * FROM CATEGORY WHERE CATEGORYID="+rs.getInt("CATEGORYID"));
+				if(rs2.next()) {
+					goods.add(new Goods(rs2.getString("CATEGORYNAME"),
+							rs.getString("NAME"), 
 							rs.getDouble("PRICE"), 
 							rs.getString("PHOTO"), 
 							rs.getString("ENGNAME")));
-				}else if(rs.getString("CLASSIFICATION").equals(name)){
-					goods.add(new Goods(rs.getString("NAME"), 
-										rs.getDouble("PRICE"), 
-										rs.getString("PHOTO"), 
-										rs.getString("ENGNAME")));
 				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.goods = goods;	
+		return goods;	
 	}
 }
