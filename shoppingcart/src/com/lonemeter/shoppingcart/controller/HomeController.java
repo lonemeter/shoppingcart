@@ -1,6 +1,7 @@
 package com.lonemeter.shoppingcart.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,10 +21,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lonemeter.shoppingcart.good.Goods;
+import com.lonemeter.shoppingcart.other.Order;
+import com.lonemeter.shoppingcart.other.OrderDAO;
 import com.lonemeter.shoppingcart.other.Serch;
 
 @Controller
-@ComponentScan("com.lonemeter.shoppingcart.other")
 public class HomeController {
 	
 	@Autowired
@@ -71,7 +73,23 @@ public class HomeController {
 			response.sendRedirect("home?page=shoppingcart");
 		}else{
 			request.getSession().setAttribute(product, product);
-			//response.sendRedirect("home?page=shoppingcart");
+			response.sendRedirect("home?page=shoppingcart");
 		}	
+	}
+	
+	@GetMapping("orders")
+	public String orders(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException{
+		List<Order> orders = OrderDAO.getOrders();
+		request.getSession().setAttribute("orders", orders);
+		return "orders";
+	}
+	
+	@GetMapping("orderInfo")
+	public String orderInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException{
+		int orderID = Integer.parseInt(request.getParameter("orderID"));
+		request.setAttribute("orderID", orderID);
+		List<Goods> orderInfo = OrderDAO.getOrderInfo(orderID);
+		request.getSession().setAttribute("orderInfo", orderInfo);
+		return "orderInfo";
 	}
 }

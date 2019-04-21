@@ -6,23 +6,43 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import com.lonemeter.shoppingcart.good.*;
 
 @Component
 public class Items {
+	@Autowired
+	JdbcTemplate jdbcTemplate;
 	@Bean
 	public List<Goods> goods(){
-		Connection cn;
-		Statement st;
-		Statement st2;
-		ResultSet rs;
-		ResultSet rs2;
 		List<Goods> goods = new ArrayList<>();
+		List<Map<String, Object>>  rows = jdbcTemplate.queryForList("SELECT * FROM GOOD");
+		Iterator<Map<String, Object>>  it = rows.iterator(); 
+		while(it.hasNext()) {
+			Map<String, Object> userMap = (Map<String, Object>) it.next();
+			List<Map<String, Object>> rows2 = jdbcTemplate.queryForList("SELECT * FROM CATEGORY WHERE CATEGORYID="+userMap.get("CATEGORYID").toString());
+			Iterator<Map<String, Object>> it2 = rows2.iterator(); 
+			if(it2.hasNext()) {
+				Map<String, Object> userMap2 = (Map<String, Object>) it2.next();
+				goods.add(new Goods(userMap2.get("CATEGORYNAME").toString(),
+						userMap.get("NAME").toString(), 
+						Double.parseDouble(userMap.get("PRICE").toString()),
+						userMap.get("PHOTO").toString(), 
+						userMap.get("ENGNAME").toString())
+						);
+			}
+		}
+		/*
 		try {
 			cn = DriverManager.getConnection("jdbc:h2:mem:testdb","sa","");
 			st = cn.createStatement();
@@ -43,6 +63,7 @@ public class Items {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
 		return goods;	
 	}
 }

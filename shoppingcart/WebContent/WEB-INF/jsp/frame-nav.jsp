@@ -7,5 +7,7 @@
       <li><a href="home?page=armor">防具</a></li>
       <li><a href="home?page=arms">武器</a></li>
       <li><a href="home?page=shoppingcart">購物車</a></li>
+      <br>
+      <li><a href="orders">成交資訊</a></li>
     </ul>
 </nav>

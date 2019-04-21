@@ -15,7 +15,7 @@
 	</head>
 	<body>
 		<header>
-		  <h2><c:if test="${loginUser != null}">${login.getName()},</c:if>歡迎光臨METER的${分類}商場</h2>
+		  <h2><c:if test="${loginUser != null}">${loginUser.getName()},</c:if>歡迎光臨METER的${分類}商場</h2>
 		  <c:if test="${loginUser == null}"><a href='login'>由此登入帳號</a></c:if>
 		  <jsp:include page='WEB-INF\jsp\logout.jsp'/>
 		</header>

@@ -2,7 +2,6 @@ package com.lonemeter.shoppingcart.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,22 +9,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.lonemeter.shoppingcart.account.AccountDAO;
-import com.lonemeter.shoppingcart.account.AccountH2Data;
+import com.lonemeter.shoppingcart.account.AccountInfo;
 import com.lonemeter.shoppingcart.good.Goods;
+import com.lonemeter.shoppingcart.other.Order;
 
 @Controller
 public class AccountController {
-	
 	@Autowired
-	AccountH2Data user;
+	AccountDAO accountDAO;
 	@Autowired
 	List<Goods> goods;
+	private List<Order> orders;
 	
 	@GetMapping("login")
 	public String loginForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,8 +33,12 @@ public class AccountController {
 	
 	@PostMapping("login")
 	public String login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(user.check(request.getParameter("name"),request.getParameter("password"))){
-			request.getSession().setAttribute("loginUser", user.getLoginUser());
+		String name = request.getParameter("name");
+		String password = request.getParameter("password");
+		if(accountDAO.check(name,password)){
+			request.changeSessionId();
+			AccountInfo loginUser = new AccountInfo(name, password, accountDAO.getLoginUserMoney(name, password));
+			request.getSession().setAttribute("loginUser", loginUser);
 			return "redirect:home";
 		}
 		else{
@@ -57,7 +60,7 @@ public class AccountController {
 	@PostMapping("register")
 	public String register(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getParameter("password1").equals(request.getParameter("password2"))
-				&& user.register(request.getParameter("name"), request.getParameter("password1"))){
+				&& accountDAO.register(request.getParameter("name"), request.getParameter("password1"))){
 			return "aleart-register";
 		}else{
 			return "register";
@@ -71,10 +74,11 @@ public class AccountController {
 	
 	@PostMapping("changePassword")
 	public String changepassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		AccountDAO loginUser = (AccountDAO) request.getSession().getAttribute("loginUser");
+		AccountInfo loginUser = (AccountInfo) request.getSession().getAttribute("loginUser");
 		if(request.getParameter("oldPassword").equals(loginUser.getPassword()) 
 				&& request.getParameter("newPassword1").equals(request.getParameter("newPassword2"))){
 			try {
+				accountDAO.changePassword(loginUser.getName(), loginUser.getPassword(), request.getParameter("newPassword1"));
 				loginUser.changePassword(request.getParameter("newPassword1"));
 			} catch (NumberFormatException | SQLException e) {
 				e.printStackTrace();
@@ -92,8 +96,9 @@ public class AccountController {
 	
 	@PostMapping("store")
 	public String store(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		AccountDAO loginUser = (AccountDAO) request.getSession().getAttribute("loginUser");
+		AccountInfo loginUser = (AccountInfo) request.getSession().getAttribute("loginUser");
 		try {
+			accountDAO.store(loginUser.getName(), loginUser.getMoney(), Double.parseDouble(request.getParameter("storemoney")));
 			loginUser.store(Double.parseDouble(request.getParameter("storemoney")));
 		} catch (NumberFormatException | SQLException e) {
 			e.printStackTrace();
@@ -103,17 +108,20 @@ public class AccountController {
 	
 	@GetMapping("consume")
 	public String Consume(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		AccountDAO loginUser = (AccountDAO) request.getSession().getAttribute("loginUser");
+		AccountInfo loginUser = (AccountInfo) request.getSession().getAttribute("loginUser");
 		try {
-			loginUser.consume((double) request.getSession().getAttribute("sum"));
+			accountDAO.consume(loginUser.getName(), loginUser.getMoney(), (double) request.getSession().getAttribute("sum"));
+			loginUser.consum((double) request.getSession().getAttribute("sum"));
+			
 			//新增orders
-			loginUser.addOrders();
+			accountDAO.addOrders(loginUser.getName());
 			//加入oders資料
 			for(Goods good: goods){
 				if(request.getSession().getAttribute(good.getEngname())!=null){
-					loginUser.addOrdersINFO(good);
+					accountDAO.addOrdersINFO(loginUser.getName(), good);
 				}
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
