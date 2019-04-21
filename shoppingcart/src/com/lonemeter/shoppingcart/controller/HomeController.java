@@ -30,6 +30,8 @@ public class HomeController {
 	
 	@Autowired
 	List<Goods> goods;
+	@Autowired
+	OrderDAO orderDAO;
 	
 	@GetMapping("home")
 	public String home(HttpServletRequest request, HttpServletResponse response, Map<String, Object> map) throws ServletException, IOException{
@@ -79,7 +81,7 @@ public class HomeController {
 	
 	@GetMapping("orders")
 	public String orders(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException{
-		List<Order> orders = OrderDAO.getOrders();
+		List<Order> orders = orderDAO.getOrders();
 		request.getSession().setAttribute("orders", orders);
 		return "orders";
 	}
@@ -88,7 +90,7 @@ public class HomeController {
 	public String orderInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException{
 		int orderID = Integer.parseInt(request.getParameter("orderID"));
 		request.setAttribute("orderID", orderID);
-		List<Goods> orderInfo = OrderDAO.getOrderInfo(orderID);
+		List<Goods> orderInfo = orderDAO.getOrderInfo(orderID);
 		request.getSession().setAttribute("orderInfo", orderInfo);
 		return "orderInfo";
 	}

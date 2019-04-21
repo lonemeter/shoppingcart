@@ -19,19 +19,9 @@ import com.lonemeter.shoppingcart.good.Goods;
 @Component
 public class OrderDAO {
 	@Autowired
-	static JdbcTemplate jdbcTemplate;
+	JdbcTemplate jdbcTemplate;
 	
-	public static List<Order> getOrders() throws SQLException{
-		List<Order> orders = new ArrayList<>();
-		
-		Connection cn = DriverManager.getConnection("jdbc:h2:mem:testdb","sa","");
-		Statement st = cn.createStatement();
-		ResultSet rs = st.executeQuery("SELECT * FROM ORDERS");
-		while(rs.next()) {
-			orders.add(new Order(rs.getInt("ORDERID"),rs.getString("UserName")));
-		}
-		return orders;
-		/*
+	public List<Order> getOrders() throws SQLException{
 		List<Order> orders = new ArrayList<>();
 		List<Map<String, Object>> rows = jdbcTemplate.queryForList("SELECT * FROM ORDERS");
 		Iterator<Map<String, Object>> it = rows.iterator();
@@ -40,34 +30,39 @@ public class OrderDAO {
 			orders.add(new Order(Integer.parseInt(userMap.get("ORDERID").toString()),userMap.get("UserName").toString()));
 		}
 		return orders;
-		*/
 	}
 	
-	public static List<Goods> getOrderInfo(int orderID) throws SQLException{
+	public List<Goods> getOrderInfo(int orderID) throws SQLException{
 		List<Goods> orderInfo = new ArrayList<>();
-		
-		Connection cn = DriverManager.getConnection("jdbc:h2:mem:testdb","sa","");
-		Statement st = cn.createStatement();
-		ResultSet rs = st.executeQuery("SELECT * FROM R1 WHERE ORDERID = "+orderID);
-		while(rs.next()) {
-			int goodID = rs.getInt("GoodID");
-			Statement st2 = cn.createStatement();
-			ResultSet rs2 = st2.executeQuery("SELECT * FROM GOOD WHERE GoodID = "+ goodID);
-			rs2.next();
-			int categoryID = rs2.getInt("categoryID");
-			Statement st3 = cn.createStatement();
-			ResultSet rs3 = st3.executeQuery("SELECT * FROM CATEGORY WHERE CategoryID = "+ categoryID);
-			rs3.next();
-			String category = rs3.getString("CategoryName");
+		List<Map<String, Object>> rowsOfR1 = jdbcTemplate.queryForList("SELECT * FROM R1 WHERE ORDERID ="+orderID);
+		Iterator<Map<String, Object>> itR1 = rowsOfR1.iterator();
+		while(itR1.hasNext()) {
+			Map<String, Object> userMap = (Map<String, Object>) itR1.next();
+			int goodID = Integer.parseInt(userMap.get("GoodID").toString());
+			
+			List<Map<String, Object>> rowsOfGood = jdbcTemplate.queryForList("SELECT * FROM GOOD WHERE GoodID = "+ goodID);
+			Iterator<Map<String, Object>> itGood = rowsOfGood.iterator();
+			Map<String, Object> userMap2 = (Map<String, Object>) itGood.next();
+			//取得分類ID
+			int categoryID = Integer.parseInt(userMap2.get("categoryID").toString());
+			
+			List<Map<String, Object>> rowsOfCategory = jdbcTemplate.queryForList("SELECT * FROM CATEGORY WHERE CategoryID = "+ categoryID);
+			Iterator<Map<String, Object>> itCategory = rowsOfCategory.iterator();
+			Map<String, Object> userMap3 = (Map<String, Object>) itCategory.next();
+			//取得分類名稱
+			String category = userMap3.get("CategoryName").toString();
+			
+			//取得訂單內容
 			Goods good = new Goods(
 					category, 
-					rs2.getString("name"), 
-					rs2.getDouble("price"), 
-					rs2.getString("photo"), 
-					rs2.getString("engname")
+					userMap2.get("name").toString(), 
+					Double.parseDouble(userMap2.get("price").toString()), 
+					userMap2.get("photo").toString(), 
+					userMap2.get("engname").toString()
 					);
+			//加入訂單資訊
 			orderInfo.add(good);
-		}
+		}	
 		return orderInfo;
 	}
 }
