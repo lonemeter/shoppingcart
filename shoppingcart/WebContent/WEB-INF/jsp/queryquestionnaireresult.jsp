@@ -12,7 +12,9 @@
 				問題${questionsAns[0]}：${questionsAns[1]}<br>
 			</c:forEach>
 			<br>
-			<a href="home">繼續購物</a>
+			<a href="orders">成交資訊</a>
+			<a href="home">首頁</a>
 		</article>
 	</td></tr>
+	
 </table>

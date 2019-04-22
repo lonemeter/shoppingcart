@@ -26,15 +26,6 @@ public class AccountDAO implements Account{
 		Iterator<Map<String, Object>>  it = rows.iterator();
 		Map<String, Object> userMap = (Map<String, Object>)it.next();
 		money = Double.parseDouble(userMap.get("MONEY").toString());
-		/*
-		Connection cn = DriverManager.getConnection("jdbc:h2:mem:testdb","sa","");
-		Statement st = cn.createStatement();
-		st.executeUpdate("UPDATE User SET MONEY = MONEY+"+ num +" WHERE UserName='"+this.name+"'");
-		ResultSet rs = st.executeQuery("SELECT * FROM User WHERE UserName='"+this.name+"'");
-		rs.next();
-		this.money = rs.getDouble("MONEY");
-		//this.money += num;
-		 */
 	}
 	
 	@Override
@@ -44,25 +35,10 @@ public class AccountDAO implements Account{
 		Iterator<Map<String, Object>>  it = rows.iterator();
 		Map<String, Object> userMap = (Map<String, Object>)it.next();
 		money = Double.parseDouble(userMap.get("MONEY").toString());
-		/*
-		Connection cn = DriverManager.getConnection("jdbc:h2:mem:testdb","sa","");
-		Statement st = cn.createStatement();
-		st.executeUpdate("UPDATE User SET MONEY = MONEY-"+ num +" WHERE UserName='"+this.name+"'");
-		ResultSet rs = st.executeQuery("SELECT * FROM User WHERE UserName='"+this.name+"'");
-		rs.next();
-		this.money = rs.getDouble("MONEY");
-		//this.money -= num;
-		 */
 	}
 	
 	public void addOrders(String name) throws SQLException{
 		jdbcTemplate.update("INSERT INTO ORDERS(UserName) VALUES ('"+name+"')");
-
-		/*
-		Connection cn = DriverManager.getConnection("jdbc:h2:mem:testdb","sa","");
-		Statement st = cn.createStatement();
-		st.executeUpdate("INSERT INTO ORDERS(UserName) VALUES ('"+this.name+"')");
-		*/
 	}
 	
 	public void addOrdersINFO(String name, Goods good) throws SQLException{
@@ -73,20 +49,6 @@ public class AccountDAO implements Account{
 		int OrderID =  Integer.parseInt(userMap.get("ORDERID").toString());
 		int GoodID =  Integer.parseInt(userMap2.get("GoodID").toString());
 		jdbcTemplate.update("INSERT INTO R1 VALUES ('"+OrderID+"','"+GoodID+"')");
-		
-		/*
-		Connection cn = DriverManager.getConnection("jdbc:h2:mem:testdb","sa","");
-		Statement st = cn.createStatement();
-		Statement st2 = cn.createStatement();
-		Statement st3 = cn.createStatement();
-		ResultSet rs2 = st2.executeQuery("SELECT ORDERID FROM ORDERS WHERE UserName='"+this.name+"'");
-		ResultSet rs3 = st3.executeQuery("SELECT GoodID FROM GOOD WHERE ENGNAME='"+good.getEngname()+"'");
-		rs2.last();
-		rs3.last();
-		int OrderID =  rs2.getInt("ORDERID");
-		int GoodID =  rs3.getInt("GoodID");
-		st.executeUpdate("INSERT INTO R1 VALUES ('"+OrderID+"','"+GoodID+"')");
-		*/
 	}
 	
 	public void changePassword(String name,String password, String newpassword) throws SQLException{
@@ -94,14 +56,6 @@ public class AccountDAO implements Account{
 		List<Map<String, Object>> rows = jdbcTemplate.queryForList("SELECT * FROM User WHERE UserName='"+name+"'");
 		Map<String, Object> userMap = (Map<String, Object>) rows.get(0);
 		password = userMap.get("PASSWORD").toString();
-		/*
-		Connection cn = DriverManager.getConnection("jdbc:h2:mem:testdb","sa","");
-		Statement st = cn.createStatement();
-		st.executeUpdate("UPDATE User SET PASSWORD ='"+ newpassword +"' WHERE UserName='"+this.name+"'");
-		ResultSet rs = st.executeQuery("SELECT * FROM User WHERE UserName='"+this.name+"'");
-		rs.next();
-		this.password = rs.getString("PASSWORD");
-		*/
 	}
 	
 	public double getLoginUserMoney(String name, String password) {
@@ -127,24 +81,6 @@ public class AccountDAO implements Account{
 			}
 		}
 		return false;
-		/*
-		try {
-			cn = DriverManager.getConnection("jdbc:h2:mem:testdb","sa","");
-			st = cn.createStatement();
-			rs = st.executeQuery("SELECT * FROM User");
-			while(rs.next()){
-				if(rs.getString("UserName").equals(name) && rs.getString("password").equals(password)){
-					AccountInfo user = new AccountInfo(rs.getString("UserName"),rs.getString("password"),rs.getDouble("money"));
-					this.loginuser = user;
-					return true;
-				}
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return false;
-		*/
 	}
 	
 	public boolean register(String name, String password){
@@ -158,26 +94,5 @@ public class AccountDAO implements Account{
 		}
 		jdbcTemplate.update("INSERT INTO User VALUES ('" + name + "','" + password + "',0.0)");
 		return true;
-		/*
-		try {
-			cn = DriverManager.getConnection("jdbc:h2:mem:testdb","sa","");
-			st = cn.createStatement();
-			/*
-			rs = st.executeQuery("SELECT * FROM ACCOUNT");
-			while(rs.next()){
-				if(rs.getString("name").equals(name)){
-					return false;
-				}
-			}
-			//Account user = new Account(name,password,0);
-			st.executeUpdate("INSERT INTO User VALUES ('" + name + "','" + password + "',0.0)");
-			return true;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			System.out.println("µLªkµù¥U");
-			e.printStackTrace();
-			return false;
-		}
-		*/
 	}
 }

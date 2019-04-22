@@ -14,12 +14,14 @@
 			<th>訂單編號</th>
 			<th>購物者</th>
 			<th>訂單資訊</th>
+			<th>問卷調查</th>
 		</tr>
 		<c:forEach var="orders" items="${orders}">
 			<tr>
 		 		<td>${orders.getOrderID()}</td>
 	 			<td>${orders.getUserName()}</td>
 	 			<td><a href="orderInfo?orderID=${orders.getOrderID()}">查看訂單</a></td>
+	 			<td><a href="questionnaireResult?OrderID=${orders.getOrderID()}">問卷查看</a></td>
 			</tr>
 	
 			

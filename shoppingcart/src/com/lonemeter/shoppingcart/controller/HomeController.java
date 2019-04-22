@@ -44,10 +44,8 @@ public class HomeController {
 				goodsCategory = Serch.goodsCategory(goods, page);
 			}
 			if(serch!=""){
-				//request.setAttribute("goods", Serch.goodsSerch(goodsCategory,serch));
 				map.put("goods", Serch.goodsSerch(goodsCategory,serch));
 			}else{
-				//request.setAttribute("goods", goodsCategory);
 				map.put("goods", goodsCategory);
 			}
 			return "home";

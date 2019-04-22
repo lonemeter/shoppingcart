@@ -28,6 +28,8 @@ public class RootConfig {
 			.addScript("com/lonemeter/shoppingcart/sql/User.sql")
 			.addScript("com/lonemeter/shoppingcart/sql/Orders.sql")
 			.addScript("com/lonemeter/shoppingcart/sql/R1.sql")
+			.addScript("com/lonemeter/shoppingcart/sql/Question.sql")
+			.addScript("com/lonemeter/shoppingcart/sql/QuestionnaireResult.sql")
 			.build();
 		return db;
 	}
